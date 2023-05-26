@@ -1,0 +1,73 @@
+
+-- Crear tabla Pais
+CREATE TABLE Pais (
+ Id_Pais NUMBER NOT NULL,
+ Nombre_Pais VARCHAR2(255) NOT NULL,
+ PRIMARY KEY (Id_Pais)
+);
+
+-- Crear tabla Provincia
+CREATE TABLE Provincia (
+ Id_Provincia NUMBER NOT NULL,
+ Nombre_Provincia VARCHAR2(255) NOT NULL,
+ Provincia_IdPais NUMBER NOT NULL,
+ PRIMARY KEY(Id_Provincia),
+ CONSTRAINT fk_pais
+   FOREIGN KEY(Provincia_IdPais) 
+   REFERENCES Pais(Id_Pais)
+);
+
+-- Crear tabla Annios
+CREATE TABLE Annios(
+ Id_Annios NUMBER NOT NULL,
+ Annios NUMBER NOT NULL,
+ Annios_Valor NUMBER NOT NULL,
+ Anios_IdPais NUMBER NOT NULL,
+ PRIMARY KEY(Id_Annios),
+ CONSTRAINT fk_pais_annios
+   FOREIGN KEY(Anios_IdPais) 
+   REFERENCES Pais(Id_Pais)
+);
+
+-- Crear tabla Casos_Diarios
+CREATE TABLE Casos_Diarios(
+ Idcasos_diarios NUMBER NOT NULL,
+ Fecha DATE,
+ Active NUMBER,
+ Case_Fatality_Ratio NUMBER,
+ Confirmed NUMBER,
+ Deaths NUMBER,
+ Incidence_Rate NUMBER,
+ Latitude VARCHAR2(255),
+ Longitude VARCHAR2(255),
+ Casos_IdProvincia NUMBER,
+ Recovered NUMBER,
+ PRIMARY KEY (Idcasos_diarios),
+ CONSTRAINT fk_provincia_casosdiarios
+   FOREIGN KEY(Casos_IdProvincia) 
+   REFERENCES Provincia(Id_Provincia)
+);
+
+-- Crear tabla DATOS_MACRO
+CREATE TABLE DATOS_MACRO(
+Iddatos_macro NUMBER NOT NULL,
+DatoMarco_IdPais NUMBER,
+Health_index NUMBER,
+Obese_rate NUMBER,
+Suicide_rate NUMBER,
+Democracies NUMBER,
+Hdr_rate NUMBER,
+Life_Exp NUMBER,
+Gpi NUMBER,
+Iq_rate NUMBER,
+Deaths_per_1000_live_births NUMBER,
+Gdp_usd NUMBER,
+Ipc NUMBER,
+PRIMARY KEY (Iddatos_macro),
+CONSTRAINT fk_pais_datosmarco
+   FOREIGN KEY(DatoMarco_IdPais) 
+   REFERENCES Pais(Id_Pais)
+);
+
+
+select * from pais
